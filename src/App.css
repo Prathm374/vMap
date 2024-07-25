@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.vMap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+}
+
+.vMap .map {
+    flex: 1; /* Map takes available vertical space */
+    width: 100%;
+    /*margin-inline: 5%;
+    margin-top: 2%; */
+}
+
+.microphone-icon {
+    position: fixed; /* Fixed positioning to keep it in the viewport */
+    bottom: 50px; /* Adjust as needed */
+    width: 60px;
+    height: 60px;
+    border: none;
+    color: white;
+    background-color: #243b55;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); 
+    z-index: 1000; 
+    border-radius: 50%;
+}
+
+.recognized-speech {
+    width: 90%; /* Adjust width to fit the screen */
+    margin-inline: 5%; /* Align with map width */
+    padding: 10px; /* Add padding if needed */
+    background: rgba(255, 255, 255, 0.8); /* Background color for better readability */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better visibility */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    max-height: 20vh; /* Limit the height of the text container */
+}
