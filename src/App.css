@@ -55,3 +55,12 @@
 .hideTextBox {
     display: none;
 }
+
+.vMap .sidebr{
+    height: 90vh;
+    top: 5vh;
+    left: 2vh;
+    width: 10vh;
+    z-index: 1000;
+    position: absolute;
+}

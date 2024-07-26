@@ -6,6 +6,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
 import VoiceVisualizer from './components/VoiceVisualizer'; // Import the visualizer
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [coordinates, setCoordinates] = useState({ latitude: 21.149850, longitude: 79.080598 });
@@ -65,6 +66,7 @@ function App() {
     <div className="vMap">
       {/* <Navbar /> */}
       <Map coordinates={coordinates} />
+      <Sidebar />
       <div className={dispText ? "recognized-speech" : "recognized-speech hideTextBox"}>
         <VoiceVisualizer listening={listening} /> {/* Add visualizer here */}
         <p>{recognizedSpeech}</p>
