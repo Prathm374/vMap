@@ -27,7 +27,7 @@ export default function Map({ coordinates }) {
 
   return (
     <div className='map'>
-      <MapContainer center={[latitude, longitude]} zoom={15}>
+      <MapContainer center={[latitude, longitude]} zoom={15} zoomControl={false}>
         <TileLayer
         //   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

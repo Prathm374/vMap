@@ -5,10 +5,12 @@ import Map from './components/Map';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import VoiceVisualizer from './components/VoiceVisualizer'; // Import the visualizer
 
 function App() {
   const [coordinates, setCoordinates] = useState({ latitude: 21.149850, longitude: 79.080598 });
   const [recognizedSpeech, setRecognizedSpeech] = useState("");
+  const [dispText, setDispText] = useState(false);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -33,11 +35,27 @@ function App() {
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
+  } = useSpeechRecognition({ continuous: true });
 
   useEffect(() => {
-    setRecognizedSpeech(transcript);
-  }, [transcript]);
+    if (transcript && transcript !== recognizedSpeech) {
+      setRecognizedSpeech(transcript);
+      setDispText(true);
+    }
+  }, [transcript, recognizedSpeech]);
+
+  const handleStartListening = () => {
+    resetTranscript();
+    SpeechRecognition.startListening({ continuous: true });
+    setDispText(true);
+  };
+
+  const handleStopListening = () => {
+    SpeechRecognition.stopListening();
+    if (!transcript.trim()) {
+      setDispText(false);
+    }
+  };
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -47,11 +65,16 @@ function App() {
     <div className="vMap">
       {/* <Navbar /> */}
       <Map coordinates={coordinates} />
-      <div className="recognized-speech">
+      <div className={dispText ? "recognized-speech" : "recognized-speech hideTextBox"}>
+        <VoiceVisualizer listening={listening} /> {/* Add visualizer here */}
         <p>{recognizedSpeech}</p>
       </div>
       <button 
-        onClick={() => SpeechRecognition.startListening()} 
+        onMouseDown={handleStartListening}
+        onMouseUp={handleStopListening}
+        onMouseLeave={handleStopListening}
+        onTouchStart={handleStartListening}
+        onTouchEnd={handleStopListening}
         className="microphone-icon"
       >
         <FontAwesomeIcon icon={faMicrophone} size="2x" />
